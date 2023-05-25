@@ -1,5 +1,5 @@
 #flask app
-from flask import Flask,request
+from flask import Flask,request,jsonify
 from tools import predict,getNext
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
@@ -12,11 +12,10 @@ def hello_world():
 
 
 
-@app.route('/next',methods=['POST'])
-def next():
-    json = request.get_json()
-    symptoms =json['symptoms']
-    return getNext(symptoms)
+@app.route('/next/<symptoms>')
+def next(symptoms):
+    symptoms=symptoms.split(',')
+    return jsonify({'next':getNext(symptoms)})
 
 @app.route('/chat_bot',methods=['POST'])
 def chat_bot():
