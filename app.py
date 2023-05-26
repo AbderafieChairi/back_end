@@ -19,15 +19,12 @@ def next():
     # symptoms=symptoms.split(',')
     return jsonify({'next':getNext(symptoms)})
 
-@app.route('/chat_bot',methods=['POST'])
+@app.route('/get',methods=['POST'])
 def chat_bot():
     json = request.get_json()
     symptoms =json['symptoms']
     print(symptoms)
-    # # using NLP extract intensity
-    if symptoms[-1]["value"]>0.5:
-        return predict(symptoms)
-    return "Hello World!"
+    return jsonify({'illness':predict(symptoms)})
 
 
 if __name__ == '__main__':

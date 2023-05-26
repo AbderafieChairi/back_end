@@ -5,7 +5,7 @@ from sklearn.model_selection import cross_val_score, train_test_split
 import warnings
 from joblib import dump, load
 from sklearn import preprocessing
-warnings.filterwarnings("ignore", category=DeprecationWarning)
+warnings.filterwarnings("ignore")
 from sklearn.svm import SVC
 
 df = pd.read_csv('Data/Training.csv')
@@ -38,6 +38,5 @@ def getNext(symptoms):
 def predict(symptoms):
     input_vector = np.zeros(len(symptoms_dict))
     for item in symptoms:
-        input_vector[[symptoms_dict[item['symptom']]]] = item['value']
-    print(input_vector)
-    return str(rf_clf.predict([input_vector]))
+        input_vector[[symptoms_dict[item['symptom'].replace(' ','_')]]] = item['value']
+    return str(rf_clf.predict([input_vector])[0])
