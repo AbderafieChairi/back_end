@@ -12,9 +12,11 @@ def hello_world():
 
 
 
-@app.route('/next/<symptoms>')
-def next(symptoms):
-    symptoms=symptoms.split(',')
+@app.route('/next',methods=['POST'])
+def next():
+    json = request.get_json()
+    symptoms = [i.replace(' ','_') for i in json['symptoms']]
+    # symptoms=symptoms.split(',')
     return jsonify({'next':getNext(symptoms)})
 
 @app.route('/chat_bot',methods=['POST'])
