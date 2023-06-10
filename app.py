@@ -5,6 +5,10 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+#cors allow all
+
+
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -17,7 +21,9 @@ def next():
     json = request.get_json()
     symptoms = [i.replace(' ','_') for i in json['symptoms']]
     # symptoms=symptoms.split(',')
-    return jsonify({'next':getNext(symptoms)})
+    response = jsonify({'next':getNext(symptoms)})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 @app.route('/get',methods=['POST'])
 def chat_bot():
