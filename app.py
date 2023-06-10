@@ -11,7 +11,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    response = jsonify({'next':"hello world"})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 
 
