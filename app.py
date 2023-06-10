@@ -22,6 +22,7 @@ def hello_world():
 def next():
     json = request.get_json()
     symptoms = [i.replace(' ','_') for i in json['symptoms']]
+    print(symptoms)
     # symptoms=symptoms.split(',')
     response = jsonify({'next':getNext(symptoms)})
     response.headers.add("Access-Control-Allow-Origin", "*")
